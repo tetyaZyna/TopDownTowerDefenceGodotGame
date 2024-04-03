@@ -17,6 +17,7 @@ region = Rect2(0, 112, 16, 16)
 [node name="PopupMenu" type="PopupMenu"]
 size = Vector2i(159, 97)
 visible = true
+allow_search = false
 item_count = 5
 item_0/text = "Build"
 item_0/icon = SubResource("AtlasTexture_rfu8y")

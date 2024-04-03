@@ -1,6 +1,7 @@
 using Godot;
 using Godot.Collections;
 using TowerDefence.characters;
+using TowerDefence.menu;
 
 namespace TowerDefence.scripts;
 
@@ -35,8 +36,9 @@ public partial class MouseController : Node2D
 
     public override void _Ready()
     {
-        ContextMenu = GetNode<PopupMenu>("PopupMenu");
-        ContextMenu.IdPressed += Action;
+        ContextMenu = new BuildPopupMenu();
+        AddChild(ContextMenu);
+        ContextMenu.IdPressed += ContextAction;
         GameTileMap = GetNode<TileMap>("TileMap");
         Hero = GetNode<Hero>("Hero");
         Hero.AutoMoveModeChanged += OnAutoMovingComplete;
@@ -98,13 +100,13 @@ public partial class MouseController : Node2D
                 ContextMenu.SetItemDisabled(2, true); 
                 ContextMenu.SetItemDisabled(4, false);
             }
-            ContextMenu.Position =  new Vector2I(200, 0);
+            var viewportPosition = GetViewport().GetMousePosition();
+            ContextMenu.Position = new Vector2I((int)viewportPosition.X, (int)viewportPosition.Y);
             ContextMenu.Show();
         }
-        
     }
     
-    private void Action(long id)
+    private void ContextAction(long id)
     {
         switch (id)
         {
@@ -121,7 +123,6 @@ public partial class MouseController : Node2D
                 GameTileMap.EraseCell(NavigationLevel, BuildPosition);
                 break;
         }
-        
     }
     
     public override void _Process(double delta)
