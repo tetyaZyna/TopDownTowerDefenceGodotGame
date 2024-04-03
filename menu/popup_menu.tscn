@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://ch78ji4kv0e34"]
+
+[ext_resource type="Texture2D" uid="uid://catdr60gqr3qs" path="res://assets/user interface/UiIcons.png" id="1_05agp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rfu8y"]
+atlas = ExtResource("1_05agp")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_osshk"]
+atlas = ExtResource("1_05agp")
+region = Rect2(32, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tb115"]
+atlas = ExtResource("1_05agp")
+region = Rect2(0, 112, 16, 16)
+
+[node name="PopupMenu" type="PopupMenu"]
+size = Vector2i(159, 97)
+visible = true
+item_count = 5
+item_0/text = "Build"
+item_0/icon = SubResource("AtlasTexture_rfu8y")
+item_0/id = 0
+item_1/text = ""
+item_1/id = 1
+item_1/disabled = true
+item_1/separator = true
+item_2/text = "Upgrade"
+item_2/icon = SubResource("AtlasTexture_osshk")
+item_2/id = 2
+item_3/text = ""
+item_3/id = 3
+item_3/disabled = true
+item_3/separator = true
+item_4/text = "Destroy"
+item_4/icon = SubResource("AtlasTexture_tb115")
+item_4/id = 4
