@@ -1,8 +1,9 @@
-[gd_resource type="TileSet" load_steps=29 format=3 uid="uid://u4gqx15e455l"]
+[gd_resource type="TileSet" load_steps=33 format=3 uid="uid://u4gqx15e455l"]
 
 [ext_resource type="Texture2D" uid="uid://uhqvf06hdrks" path="res://assets/world/Ground/TexturedGrass.png" id="1_jlwvy"]
 [ext_resource type="Texture2D" uid="uid://wqn53ry12l5s" path="res://assets/world/Ground/Grass.png" id="2_ovj33"]
 [ext_resource type="Texture2D" uid="uid://dqm4csjodn6lu" path="res://assets/world/Miscellaneous/Bridge.png" id="3_mwbti"]
+[ext_resource type="Texture2D" uid="uid://4862tgqwbdix" path="res://assets/world/Portal.png" id="4_a71fo"]
 [ext_resource type="Texture2D" uid="uid://5n4eyp2v6lny" path="res://assets/world/Ground/Winter.png" id="4_ky2b8"]
 [ext_resource type="Texture2D" uid="uid://bdn7t4d1rpy8d" path="res://assets/world/Ground/Cliff.png" id="5_4i02t"]
 [ext_resource type="Texture2D" uid="uid://dpj53jsvr1b1u" path="res://assets/world/Buildings/Cyan/CyanMarket.png" id="5_vd2m3"]
@@ -13,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://cus2vgrnf2vmj" path="res://assets/world/Buildings/Cyan/CyanKeep.png" id="8_2o87w"]
 [ext_resource type="Texture2D" uid="uid://0g5r635rnvnx" path="res://assets/world/Nature/Trees.png" id="8_8iltt"]
 [ext_resource type="Texture2D" uid="uid://dmte6lrvwr5l1" path="res://assets/world/Ground/Shore.png" id="8_a1bdo"]
+[ext_resource type="Texture2D" uid="uid://bbbkt3v1qwbq6" path="res://assets/world/Miscellaneous/Signs.png" id="14_h3x32"]
 [ext_resource type="Texture2D" uid="uid://ys6d4fewbd2s" path="res://assets/world/Ground/DeadGrass.png" id="15_qwoa0"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_omk7c"]
@@ -32,9 +34,14 @@ texture = ExtResource("1_jlwvy")
 1:1/0 = 0
 1:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/next_alternative_id = 2
 0:1/0 = 0
 0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:1/0/physics_layer_0/angular_velocity = 0.0
+0:1/1 = 1
+0:1/1/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:1/1/physics_layer_0/angular_velocity = 0.0
+0:1/1/custom_data_0 = true
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_763x8"]
 texture = ExtResource("2_ovj33")
@@ -133,6 +140,16 @@ texture = ExtResource("8_2o87w")
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 17, -16, -16, 16, -16, 16, 17)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_irld5"]
+texture = ExtResource("4_a71fo")
+5:0/size_in_atlas = Vector2i(3, 4)
+5:0/0 = 0
+5:0/0/texture_origin = Vector2i(2, 24)
+5:0/0/y_sort_origin = 32
+5:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:0/0/physics_layer_0/angular_velocity = 0.0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-5, 7, -8, -1, 8, -1, 5, 7)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y2yqm"]
 texture = ExtResource("6_hs1lp")
@@ -239,10 +256,6 @@ texture = ExtResource("6_hs1lp")
 5:5/0/physics_layer_0/angular_velocity = 0.0
 5:5/0/terrains_peering_bit/bottom_side = 2
 5:5/0/terrains_peering_bit/left_side = 2
-2:9/0 = 0
-2:9/0/physics_layer_0/linear_velocity = Vector2(0, 0)
-2:9/0/physics_layer_0/angular_velocity = 0.0
-2:9/0/custom_data_0 = true
 7:7/0 = 0
 7:7/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 7:7/0/physics_layer_0/angular_velocity = 0.0
@@ -651,6 +664,15 @@ texture = ExtResource("8_8iltt")
 3:0/2/physics_layer_0/angular_velocity = 0.0
 3:0/2/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 8, -8, -8, 8, -8, 8, 8)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_aobev"]
+texture = ExtResource("14_h3x32")
+1:0/0 = 0
+1:0/0/y_sort_origin = 2
+1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+1:0/0/physics_layer_0/angular_velocity = 0.0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, 7, -4, 2, 4, 2, 4, 7)
+1:0/0/custom_data_0 = true
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nv3y7"]
 texture = ExtResource("15_qwoa0")
 0:0/0 = 0
@@ -699,3 +721,5 @@ sources/14 = SubResource("TileSetAtlasSource_gw8pb")
 sources/16 = SubResource("TileSetAtlasSource_0wboi")
 sources/19 = SubResource("TileSetAtlasSource_y2yqm")
 sources/20 = SubResource("TileSetAtlasSource_db80i")
+sources/8 = SubResource("TileSetAtlasSource_aobev")
+sources/17 = SubResource("TileSetAtlasSource_irld5")

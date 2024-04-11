@@ -1,0 +1,126 @@
+[gd_scene load_steps=8 format=3 uid="uid://c1g5qv5ytqm6g"]
+
+[ext_resource type="Script" path="res://menu/MainMenu.cs" id="1_nvh63"]
+[ext_resource type="Texture2D" uid="uid://catdr60gqr3qs" path="res://assets/user interface/UiIcons.png" id="1_xhapi"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_sgejr"]
+font_size = 72
+
+[sub_resource type="LabelSettings" id="LabelSettings_hufwt"]
+font_size = 40
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cnuvh"]
+atlas = ExtResource("1_xhapi")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8uxba"]
+atlas = ExtResource("1_xhapi")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0cvx"]
+atlas = ExtResource("1_xhapi")
+region = Rect2(0, 112, 16, 16)
+
+[node name="MainMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nvh63")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.176471, 0.176471, 0.176471, 1)
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -292.0
+offset_top = -250.0
+offset_right = 292.0
+offset_bottom = -92.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/CenterContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Panel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "TOWER DEFENCE"
+label_settings = SubResource("LabelSettings_sgejr")
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="Panel/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "DEMO
+"
+label_settings = SubResource("LabelSettings_hufwt")
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -50.5
+offset_right = 150.0
+offset_bottom = 199.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="StartButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 31
+text = "START DEMO"
+icon = SubResource("AtlasTexture_cnuvh")
+text_overrun_behavior = 4
+expand_icon = true
+
+[node name="InfoButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = -121
+theme_override_font_sizes/font_size = 31
+text = "INFO"
+icon = SubResource("AtlasTexture_8uxba")
+text_overrun_behavior = 4
+expand_icon = true
+
+[node name="ExitButton" type="Button" parent="Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/h_separation = -131
+theme_override_font_sizes/font_size = 31
+text = "EXIT"
+icon = SubResource("AtlasTexture_f0cvx")
+text_overrun_behavior = 4
+expand_icon = true

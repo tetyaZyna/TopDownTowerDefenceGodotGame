@@ -31,7 +31,6 @@ public partial class BuildPopupMenu: PopupMenu
     public override void _Input(InputEvent @event)
     {
         if (!Input.IsActionPressed("hide_context_menu") || !Visible) return;
-        GD.Print("IsAnythingPressed");
         Hide();
     }
 }
