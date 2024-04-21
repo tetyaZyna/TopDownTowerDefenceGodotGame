@@ -40,7 +40,6 @@ public partial class MouseController : Node2D
     private Vector2I PointerPosition { get; set; }
     private Vector2I BuildPosition { get; set; }
     private PauseMenu PauseMenu { get; set; }
-
     public override void _Ready()
     {
         GetTree().Paused = false;
@@ -151,6 +150,15 @@ public partial class MouseController : Node2D
             ContextMenu.Position = new Vector2I((int)viewportPosition.X + 20, (int)viewportPosition.Y + 20)
                                    - contextMenuMargin;
             ContextMenu.Show();
+        }
+        
+        if (Input.IsActionPressed("debug"))
+        {
+            var characterInstance = ResourceLoader.Load<PackedScene>("res://characters/Enemy.tscn").Instantiate();
+            if (characterInstance != null)
+            {
+                AddChild(characterInstance);
+            }
         }
     }
 

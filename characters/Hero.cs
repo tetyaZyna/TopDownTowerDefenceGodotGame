@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 
 namespace TowerDefence.characters;
@@ -7,6 +8,30 @@ public partial class Hero : CharacterBody2D
 {
     [Export] public float MoveSpeed = 100;
     [Export] public Vector2 StartDirection = new(0, 1);
+    private int _hp = 10;
+    public int Hp 
+    { 
+        get => _hp; 
+        set
+        {
+            _hp = value;
+            HpBar.Value = value;
+            if (_hp <= 0)
+            {
+                EndGame();
+            }
+        }
+    }
+    private int _coins;
+    public int Coins
+    { 
+        get => _coins; 
+        set
+        {
+            _coins = value;
+            CoinsLabel.Text = Coins.ToString();
+        }
+    }
     private Vector2 HeroDirection { get; set; }
     private AnimationTree AnimationTree { get; set; }
     private AnimationNodeStateMachinePlayback StateMachine { get; set; }
@@ -23,8 +48,10 @@ public partial class Hero : CharacterBody2D
             AutoMoveModeChanged?.Invoke(this, value);
         }
     }
-        
-        
+    private ProgressBar HpBar { get; set; }
+    private Label CoinsLabel { get; set; }
+
+
     public override void _Ready()
     {
         AnimationTree = GetNode<AnimationTree>("AnimationTree");
@@ -32,6 +59,12 @@ public partial class Hero : CharacterBody2D
         UpdateAnimationParameters(StartDirection);
         HeroDirection = StartDirection;
         NavigationAgent = GetNode<NavigationAgent2D>("NavigationAgent2D");
+        HpBar = GetNode<ProgressBar>("Sprite2D/Camera2D/CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer/ProgressBar");
+        HpBar.MaxValue = Hp;
+        HpBar.Step = 1;
+        HpBar.Value = Hp;
+        CoinsLabel = GetNode<Label>("Sprite2D/Camera2D/CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/Label");
+        CoinsLabel.Text = Coins.ToString();
     }
 
     public Vector2 GetHeroDirection()
@@ -102,5 +135,10 @@ public partial class Hero : CharacterBody2D
     private void PickNewState()
     {
         StateMachine.Travel(Velocity != Vector2.Zero ? "walk" : "idle");
+    }
+
+    private void EndGame()
+    {
+        GD.Print("Game Over");
     }
 }

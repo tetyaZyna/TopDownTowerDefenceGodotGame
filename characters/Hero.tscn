@@ -1,7 +1,31 @@
-[gd_scene load_steps=28 format=3 uid="uid://vwla5wxrwc86"]
+[gd_scene load_steps=33 format=3 uid="uid://vwla5wxrwc86"]
 
 [ext_resource type="Script" path="res://characters/Hero.cs" id="1_1myam"]
 [ext_resource type="Texture2D" uid="uid://cngbq1kt71glf" path="res://assets/hero/SwordsmanCyan.png" id="1_pkt77"]
+[ext_resource type="Texture2D" uid="uid://cshqghd44aluo" path="res://assets/user interface/Icons-Essentials.png" id="3_kb2xw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4sw85"]
+atlas = ExtResource("3_kb2xw")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ah6np"]
+bg_color = Color(0.956863, 0.72549, 0.380392, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_belvg"]
+bg_color = Color(0.854902, 0.0941176, 0.0588235, 1)
+shadow_color = Color(0.501961, 0, 0, 0.6)
+shadow_size = 3
+shadow_offset = Vector2(1, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wjjds"]
+atlas = ExtResource("3_kb2xw")
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t8wb1"]
 size = Vector2(6, 6)
@@ -245,6 +269,83 @@ texture = ExtResource("1_pkt77")
 hframes = 5
 vframes = 12
 
+[node name="Camera2D" type="Camera2D" parent="Sprite2D"]
+zoom = Vector2(3, 3)
+limit_left = -354
+limit_top = -256
+limit_right = 944
+limit_bottom = 657
+limit_smoothed = true
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+editor_draw_limits = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Sprite2D/Camera2D"]
+
+[node name="MarginContainer" type="MarginContainer" parent="Sprite2D/Camera2D/CanvasLayer"]
+offset_right = 300.0
+offset_bottom = 100.0
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ColorRect" type="ColorRect" parent="Sprite2D/Camera2D/CanvasLayer/MarginContainer"]
+visible = false
+layout_mode = 2
+color = Color(0.145098, 0.145098, 0.145098, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Sprite2D/Camera2D/CanvasLayer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Sprite2D/Camera2D/CanvasLayer/MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Sprite2D/Camera2D/CanvasLayer/MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="TextureRect" type="TextureRect" parent="Sprite2D/Camera2D/CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+texture = SubResource("AtlasTexture_4sw85")
+expand_mode = 3
+
+[node name="ProgressBar" type="ProgressBar" parent="Sprite2D/Camera2D/CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 24
+theme_override_styles/background = SubResource("StyleBoxFlat_ah6np")
+theme_override_styles/fill = SubResource("StyleBoxFlat_belvg")
+value = 50.0
+show_percentage = false
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Sprite2D/Camera2D/CanvasLayer/MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="TextureRect" type="TextureRect" parent="Sprite2D/Camera2D/CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+texture = SubResource("AtlasTexture_wjjds")
+expand_mode = 3
+
+[node name="Label" type="Label" parent="Sprite2D/Camera2D/CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 32
+text = "0
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_t8wb1")
@@ -256,8 +357,8 @@ libraries = {
 }
 tree_root = SubResource("AnimationNodeStateMachine_5qd8n")
 anim_player = NodePath("../AnimationPlayer")
-parameters/idle/blend_position = Vector2(0.00479996, 0.937037)
-parameters/walk/blend_position = Vector2(0, 0)
+parameters/idle/blend_position = Vector2(-0.0827206, -0.542568)
+parameters/walk/blend_position = Vector2(-0.845588, -0.0445946)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../AnimationTree")

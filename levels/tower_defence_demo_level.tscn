@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dn8h8s8wrwcb1"]
+[gd_scene load_steps=7 format=3 uid="uid://dn8h8s8wrwcb1"]
 
 [ext_resource type="Script" path="res://scripts/MouseController.cs" id="1_ajqtg"]
 [ext_resource type="TileSet" uid="uid://u4gqx15e455l" path="res://levels/world_tile_set.tres" id="1_kcc7o"]
 [ext_resource type="PackedScene" uid="uid://vwla5wxrwc86" path="res://characters/Hero.tscn" id="3_10mxj"]
 [ext_resource type="PackedScene" uid="uid://utbqdngr5845" path="res://menu/pause_menu.tscn" id="4_nurxd"]
+[ext_resource type="Script" path="res://scripts/EnemyController.cs" id="5_mfhi7"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_f3xxs"]
 vertices = PackedVector2Array(698, 144, 749, 86, 765, 86, 765, 209, 749, 209, 690, 166, 143, 176, 143, 129, 145, 70, 177, 54, 439, 160, 439, 193, 274, 369, 241, 353, 209, 337, 937, -105, 937, -95, 925, -95, 823, -105, 823, -89, 925, -79, 909, -79, 909, -63, 861, -63, 861, -55, 857, -55, 857, -47, 813, -47, 759, -73, 759, -89, 813, -31, 765, -31, 727, -57, 727, -73, 765, -15, 733, -15, 679, -41, 679, -57, 733, 54, 745, 54, 745, 55, 749, 55, 749, 225, 733, 225, 733, 233, 729, 233, 729, 241, 717, 241, 670, 166, 717, 249, 713, 249, 713, 257, 685, 257, 685, 273, 637, 273, 541, 193, 541, 160, 637, 289, 605, 289, 535, 265, 519, 193, 605, 305, 573, 305, 573, 313, 569, 313, 569, 321, 535, 321, 519, 265, 525, 160, 525, 159, 541, 155, 451, 159, 451, 160, 439, 155, 457, 193, 457, 279, 473, 279, 473, 369, 209, 353, 177, 337, 177, 321, 161, 321, 161, 305, 129, 305, 129, 289, 113, 289, 113, 273, 97, 273, 97, 241, 81, 241, 81, 102, 97, 176, 97, 102, 97, 86, 113, 86, 113, 70, 145, 54, 177, 38, 193, 38, 193, 22, 209, 22, 209, 6, 225, 6, 225, -11, 256, -11, 261, -19, 261, -27, 288, -27, 293, -55, 292, -55, 292, -57, 313, -57, 313, -41, 293, -35, 361, -41, 361, -25, 393, -25, 393, -9, 425, -9, 425, 7, 441, 7, 441, 103, 439, 125, 457, 103, 457, 125, 541, 125, 519, 125, 519, 89, 503, 89, 503, 7, 551, 7, 551, -9, 583, -9, 662, 144, 583, -25, 631, -25, 631, -41, 241, 361, 97, 129)
@@ -63,21 +64,12 @@ layer_7/tile_data = PackedInt32Array(917516, 65544, 0, 720908, 65544, 0, 917519,
 visible = false
 navigation_polygon = SubResource("NavigationPolygon_f3xxs")
 
+[node name="EnemyController" type="Node2D" parent="."]
+script = ExtResource("5_mfhi7")
+
 [node name="Hero" parent="." instance=ExtResource("3_10mxj")]
 z_index = 1
 position = Vector2(148, 108)
-
-[node name="Camera2D" type="Camera2D" parent="Hero"]
-zoom = Vector2(3, 3)
-limit_left = -354
-limit_top = -256
-limit_right = 944
-limit_bottom = 657
-limit_smoothed = true
-position_smoothing_enabled = true
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-editor_draw_limits = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
