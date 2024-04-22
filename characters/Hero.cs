@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using Godot;
 using TowerDefence.menu;
 
@@ -66,8 +65,8 @@ public partial class Hero : CharacterBody2D
         HpBar.Step = 1;
         HpBar.Value = Hp;
         CoinsLabel = GetNode<Label>("Sprite2D/Camera2D/CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/Label");
-        CoinsLabel.Text = Coins.ToString();
         GameOver = GetTree().Root.GetNode<GameOver>("Node2D/CanvasLayer/GameOver");
+        Coins = 100;
     }
 
     public Vector2 GetHeroDirection()

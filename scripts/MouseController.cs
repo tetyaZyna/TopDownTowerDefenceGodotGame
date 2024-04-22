@@ -90,6 +90,7 @@ public partial class MouseController : Node2D
                 GameTileMap.EraseCell(SignLevel, BuildPosition);
                 GameTileMap.SetCell(NavigationLevel, BuildPosition, TowersSourceId, TowersAtlas["Level1"]);
                 TowersList.AddChild(new Tower(GameTileMap.MapToLocal(BuildPosition)));
+                Hero.Coins -= 25;
                 break;
             case 2:
                 var towerLevel = GameTileMap.GetCellTileData(NavigationLevel, BuildPosition).GetCustomData("towerLevel")
@@ -101,9 +102,12 @@ public partial class MouseController : Node2D
                     var j = (Tower) i;
                     if (GameTileMap.MapToLocal(BuildPosition) == j.Position)
                     {
-                        j.SetLevel(towerLevel);
+                        j.SetLevel(GameTileMap.GetCellTileData(NavigationLevel, BuildPosition).GetCustomData("towerLevel")
+                            .AsInt16());
                     }
                 }
+                Hero.Coins -= 25 * (GameTileMap.GetCellTileData(NavigationLevel, BuildPosition).GetCustomData("towerLevel")
+                    .AsInt16());
                 break;
             case 4:
                 GameTileMap.EraseCell(NavigationLevel, BuildPosition);
@@ -124,22 +128,29 @@ public partial class MouseController : Node2D
     {
         if (IsCellEmpty(BuildPosition))
         {
-            ContextMenu.SetItemDisabled(0, false);
+            ContextMenu.SetItemDisabled(0, Hero.Coins < 25);
+            ContextMenu.SetItemText(0, ContextMenu.GetItemText(0)[..5]);
+            ContextMenu.SetItemText(0, ContextMenu.GetItemText(0) + " (25)");
             ContextMenu.SetItemDisabled(2, true);
+            ContextMenu.SetItemText(2, ContextMenu.GetItemText(2)[..7]);
             ContextMenu.SetItemDisabled(4, true);
         }
-        else if (GameTileMap.GetCellTileData(NavigationLevel, BuildPosition).GetCustomData("towerLevel").AsInt16() > 0
-                 && GameTileMap.GetCellTileData(NavigationLevel, BuildPosition).GetCustomData("towerLevel").AsInt16() <
-                 3)
+        else if (GameTileMap.GetCellTileData(NavigationLevel, BuildPosition).GetCustomData("towerLevel").AsInt16() is > 0 and < 3)
         {
             ContextMenu.SetItemDisabled(0, true);
-            ContextMenu.SetItemDisabled(2, false);
+            ContextMenu.SetItemText(0, ContextMenu.GetItemText(0)[..5]);
+            ContextMenu.SetItemDisabled(2, Hero.Coins < (25 *  (GameTileMap.GetCellTileData(NavigationLevel, BuildPosition).GetCustomData("towerLevel").AsInt16() + 1)));
+            ContextMenu.SetItemText(2, ContextMenu.GetItemText(2)[..7]);
+            ContextMenu.SetItemText(2, ContextMenu.GetItemText(2) + " (" + 25 * 
+                (GameTileMap.GetCellTileData(NavigationLevel, BuildPosition).GetCustomData("towerLevel").AsInt16() + 1) + ")");
             ContextMenu.SetItemDisabled(4, false);
         }
         else
         {
             ContextMenu.SetItemDisabled(0, true);
+            ContextMenu.SetItemText(0, ContextMenu.GetItemText(0)[..5]);
             ContextMenu.SetItemDisabled(2, true);
+            ContextMenu.SetItemText(2, ContextMenu.GetItemText(2)[..7]);
             ContextMenu.SetItemDisabled(4, false);
         }
     }
@@ -168,15 +179,6 @@ public partial class MouseController : Node2D
             ContextMenu.Position = new Vector2I((int)viewportPosition.X + 20, (int)viewportPosition.Y + 20)
                                    - contextMenuMargin;
             ContextMenu.Show();
-        }
-        
-        if (Input.IsActionPressed("debug"))
-        {
-            var characterInstance = ResourceLoader.Load<PackedScene>("res://characters/Enemy.tscn").Instantiate();
-            if (characterInstance != null)
-            {
-                AddChild(characterInstance);
-            }
         }
     }
 

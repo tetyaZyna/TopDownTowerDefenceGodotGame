@@ -5,8 +5,8 @@ namespace TowerDefence.characters;
 
 public partial class Enemy : Node2D
 {
-    [Export] public float MoveSpeed = 30;
-    private int _hp = 25;
+    [Export] public float MoveSpeed = 20;
+    private int _hp = 15;
     public int Hp 
     { 
         get => _hp; 

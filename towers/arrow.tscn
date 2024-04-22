@@ -12,7 +12,8 @@ radius = 5.0
 height = 15.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2r7yg"]
-height = 25.0
+radius = 6.0
+height = 16.0
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 z_index = 2
