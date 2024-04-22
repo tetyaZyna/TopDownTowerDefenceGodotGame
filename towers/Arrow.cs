@@ -7,8 +7,10 @@ namespace TowerDefence.towers;
 public partial class Arrow : CharacterBody2D
 {
     private int _arrowSpeed = 100;
+    private int _baseArrowDamage = 2;
     private PackedScene _arrow = ResourceLoader.Load<PackedScene>("res://towers/arrow.tscn");
     private int Level { get; set; }
+    private readonly Timer _timer;
     
 
     public Arrow(int level, Vector2 startPosition, Vector2 targetPosition)
@@ -22,6 +24,13 @@ public partial class Arrow : CharacterBody2D
         arrow.Position = Position;
         arrow.Velocity = direction * _arrowSpeed;
         Level = level;
+        
+        _timer = new Timer();
+        _timer.WaitTime = 0.8f;
+        _timer.OneShot = true;
+        _timer.Autostart = true;
+        AddChild(_timer);
+        _timer.Timeout += OnTimerTimeout;
     }
    
     public Arrow()
@@ -31,7 +40,12 @@ public partial class Arrow : CharacterBody2D
     private void HitEnemy(Node2D body)
     {
         var enemy = (Enemy)body.GetParent().GetParent().GetParent();
-        enemy.Hp -= 1;
+        enemy.Hp -= _baseArrowDamage * Level;
+        QueueFree();
+    }
+    
+    private void OnTimerTimeout()
+    {
         QueueFree();
     }
 

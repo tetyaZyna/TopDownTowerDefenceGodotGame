@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Godot;
+using TowerDefence.menu;
 
 namespace TowerDefence.characters;
 
@@ -50,6 +51,7 @@ public partial class Hero : CharacterBody2D
     }
     private ProgressBar HpBar { get; set; }
     private Label CoinsLabel { get; set; }
+    private GameOver GameOver { get; set; }
 
 
     public override void _Ready()
@@ -65,6 +67,7 @@ public partial class Hero : CharacterBody2D
         HpBar.Value = Hp;
         CoinsLabel = GetNode<Label>("Sprite2D/Camera2D/CanvasLayer/MarginContainer/MarginContainer/VBoxContainer/HBoxContainer2/Label");
         CoinsLabel.Text = Coins.ToString();
+        GameOver = GetTree().Root.GetNode<GameOver>("Node2D/CanvasLayer/GameOver");
     }
 
     public Vector2 GetHeroDirection()
@@ -139,6 +142,7 @@ public partial class Hero : CharacterBody2D
 
     private void EndGame()
     {
-        GD.Print("Game Over");
+        GetTree().Paused = true;
+        GameOver.Visible = true;
     }
 }

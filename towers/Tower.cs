@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Godot;
 using TowerDefence.characters;
@@ -9,14 +8,17 @@ public partial class Tower : Node2D
 {
     [Export] private int Level { get; set; }
     private Area2D Area2D { get; set; }
-    private List<Node2D> _targets = new();
+    private readonly List<Node2D> _targets = new();
     private PackedScene _arrow = ResourceLoader.Load<PackedScene>("res://towers/arrow.tscn");
     private Node Arrows { get; set; }
     private int _arrowSpeed = 100;
+    private readonly Timer _timer;
+    private bool _isReloaded = true;
 
     public void SetLevel(int level)
     {
         Level = level;
+        _timer.WaitTime = 1.5f / Level;
     }
     
     public Tower(Vector2 position)
@@ -35,6 +37,11 @@ public partial class Tower : Node2D
         Area2D.BodyExited += OnBodyExited;
         Arrows = new Node2D();
         AddChild(Arrows);
+        _timer = new Timer();
+        _timer.WaitTime = 1.5f / Level;
+        _timer.OneShot = true;
+        AddChild(_timer);
+        _timer.Timeout += OnTimerTimeout;
     }
 
     private void OnBodyEntered(Node2D body)
@@ -54,21 +61,13 @@ public partial class Tower : Node2D
     {
         if (_targets.Count > 0)
         {
-            if (Arrows.GetChildren().Count == 0)
+            if (Arrows.GetChildren().Count == 0 && _isReloaded)
             {
                 var currTarget = (PathFollow2D) _targets[0].GetParent();
-                // var arrow = (CharacterBody2D) _arrow.Instantiate();
-                // arrow.ZIndex = 1;
-                // arrow.Position = Position;
-                // Vector2 direction = (currTarget.Position - Position).Normalized();
-                // arrow.Rotation = (float)Math.Atan2(direction.Y, direction.X); 
-                // arrow.Position = Position;
-                // arrow.Velocity = direction * _arrowSpeed;
-                // Arrows.AddChild(arrow);
-                // arrow.GetNode<Area2D>("Area2D").BodyEntered += HitEnemy;
                 var arrow = new Arrow(Level, Position, currTarget.Position);
                 Arrows.AddChild(arrow);
-                arrow.ZIndex = 1;
+                _isReloaded = false;
+                _timer.Start();
             }
         }
     }
@@ -83,14 +82,9 @@ public partial class Tower : Node2D
         }
     }
     
-    public override void _Input(InputEvent @event)
+     
+    private void OnTimerTimeout()
     {
-        if (Input.IsActionPressed("debug"))
-        {
-            foreach (var i in Arrows.GetChildren())
-            {
-                Arrows.RemoveChild(i);
-            }
-        }
+        _isReloaded = true;
     }
 }

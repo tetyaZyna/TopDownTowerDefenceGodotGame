@@ -6,7 +6,7 @@ namespace TowerDefence.characters;
 public partial class Enemy : Node2D
 {
     [Export] public float MoveSpeed = 30;
-    private int _hp = 10;
+    private int _hp = 25;
     public int Hp 
     { 
         get => _hp; 
@@ -40,7 +40,7 @@ public partial class Enemy : Node2D
             QueueFree();
         }
     }
-
+   
     private void KillEnemy()
     {
         EnemyDefeated?.Invoke(this, Reward);

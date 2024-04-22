@@ -1,32 +1,32 @@
-[gd_scene load_steps=8 format=3 uid="uid://utbqdngr5845"]
+[gd_scene load_steps=8 format=3 uid="uid://co6ww6kgfxxj8"]
 
-[ext_resource type="Script" path="res://menu/PauseMenu.cs" id="1_8m4bp"]
-[ext_resource type="Texture2D" uid="uid://dt8p0oultahdl" path="res://assets/MenuBackground.png" id="1_hx7hg"]
-[ext_resource type="Texture2D" uid="uid://catdr60gqr3qs" path="res://assets/user interface/UiIcons.png" id="2_qvhpn"]
+[ext_resource type="Script" path="res://menu/GameOver.cs" id="1_1sl22"]
+[ext_resource type="Texture2D" uid="uid://dt8p0oultahdl" path="res://assets/MenuBackground.png" id="2_erq40"]
+[ext_resource type="Texture2D" uid="uid://catdr60gqr3qs" path="res://assets/user interface/UiIcons.png" id="3_ucuav"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cqrhb"]
 font_size = 72
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bk7it"]
-atlas = ExtResource("2_qvhpn")
+atlas = ExtResource("3_ucuav")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qjny4"]
-atlas = ExtResource("2_qvhpn")
+atlas = ExtResource("3_ucuav")
 region = Rect2(16, 64, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6ts0b"]
-atlas = ExtResource("2_qvhpn")
+atlas = ExtResource("3_ucuav")
 region = Rect2(0, 112, 16, 16)
 
-[node name="PauseMenu" type="Control"]
+[node name="GameOver" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_8m4bp")
+script = ExtResource("1_1sl22")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 1
@@ -35,7 +35,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_hx7hg")
+texture = ExtResource("2_erq40")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -67,7 +67,7 @@ alignment = 1
 
 [node name="Label" type="Label" parent="Panel/CenterContainer/VBoxContainer"]
 layout_mode = 2
-text = "GAME PAUSED"
+text = "GAME OVER"
 label_settings = SubResource("LabelSettings_cqrhb")
 horizontal_alignment = 1
 
@@ -86,12 +86,13 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="BackButton" type="Button" parent="Panel/VBoxContainer"]
+[node name="RestartButton" type="Button" parent="Panel/VBoxContainer"]
 process_mode = 3
 layout_mode = 2
 size_flags_vertical = 3
+theme_override_constants/h_separation = -100
 theme_override_font_sizes/font_size = 31
-text = "BACK TO GAME"
+text = "RESTART"
 icon = SubResource("AtlasTexture_bk7it")
 text_overrun_behavior = 4
 expand_icon = true

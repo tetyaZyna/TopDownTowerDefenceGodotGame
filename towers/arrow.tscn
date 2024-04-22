@@ -1,7 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bsqd8bk2g3xna"]
+[gd_scene load_steps=6 format=3 uid="uid://bsqd8bk2g3xna"]
 
+[ext_resource type="Texture2D" uid="uid://catdr60gqr3qs" path="res://assets/user interface/UiIcons.png" id="1_eucpe"]
 [ext_resource type="Script" path="res://towers/Arrow.cs" id="1_hvhiw"]
-[ext_resource type="Texture2D" uid="uid://chtohk54wjot1" path="res://towers/arrow.tres" id="2_30hah"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8jecy"]
+atlas = ExtResource("1_eucpe")
+region = Rect2(16, 176, 16, 16)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f21fj"]
 radius = 5.0
@@ -11,13 +15,13 @@ height = 15.0
 height = 25.0
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
-z_index = 1
+z_index = 2
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_hvhiw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_30hah")
+texture = SubResource("AtlasTexture_8jecy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
