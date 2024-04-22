@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Godot;
+using TowerDefence.characters;
 
 namespace TowerDefence.towers;
 
@@ -11,7 +12,7 @@ public partial class Tower : Node2D
     private List<Node2D> _targets = new();
     private PackedScene _arrow = ResourceLoader.Load<PackedScene>("res://towers/arrow.tscn");
     private Node Arrows { get; set; }
-    private int _arrowSpeed = 1000;
+    private int _arrowSpeed = 100;
 
     public void SetLevel(int level)
     {
@@ -32,7 +33,7 @@ public partial class Tower : Node2D
         Area2D.AddChild(collisionShape2D);
         Area2D.BodyEntered += OnBodyEntered;
         Area2D.BodyExited += OnBodyExited;
-        Arrows = new Node();
+        Arrows = new Node2D();
         AddChild(Arrows);
     }
 
@@ -53,22 +54,32 @@ public partial class Tower : Node2D
     {
         if (_targets.Count > 0)
         {
-            if (Arrows.GetChildren().Count < 30)
+            if (Arrows.GetChildren().Count == 0)
             {
                 var currTarget = (PathFollow2D) _targets[0].GetParent();
-                GD.Print(currTarget.Position);
-                GD.Print(currTarget.Name);
-                var arrow = (CharacterBody2D) _arrow.Instantiate();
-                arrow.ZIndex = 1;
-                arrow.Position = Position;
-                Vector2 direction = (currTarget.Position - Position).Normalized();
-                arrow.Rotation = (float)Math.Atan2(direction.Y, direction.X); 
-                arrow.Position = Position;
-                arrow.Velocity = direction * _arrowSpeed;
+                // var arrow = (CharacterBody2D) _arrow.Instantiate();
+                // arrow.ZIndex = 1;
+                // arrow.Position = Position;
+                // Vector2 direction = (currTarget.Position - Position).Normalized();
+                // arrow.Rotation = (float)Math.Atan2(direction.Y, direction.X); 
+                // arrow.Position = Position;
+                // arrow.Velocity = direction * _arrowSpeed;
+                // Arrows.AddChild(arrow);
+                // arrow.GetNode<Area2D>("Area2D").BodyEntered += HitEnemy;
+                var arrow = new Arrow(Level, Position, currTarget.Position);
                 Arrows.AddChild(arrow);
+                arrow.ZIndex = 1;
             }
-            
-
+        }
+    }
+    
+    private void HitEnemy(Node2D body)
+    {
+        var enemy = (Enemy)body.GetParent().GetParent().GetParent();
+        enemy.Hp -= 1;
+        foreach (var i in Arrows.GetChildren())
+        {
+            i.QueueFree();
         }
     }
     

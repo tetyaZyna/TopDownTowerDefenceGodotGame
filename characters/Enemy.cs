@@ -29,15 +29,7 @@ public partial class Enemy : Node2D
         PathFollow = GetNode<PathFollow2D>("Path2D/PathFollow2D");
         Reward = new Random().Next(1, 11);
     }
-
-    // public override void _Input(InputEvent @event)
-    // {
-    //     if (Input.IsActionPressed("debug"))
-    //     {
-    //         Hp = 0;
-    //     }
-    // }
-
+    
     public override void _PhysicsProcess(double delta)
     {
         PathFollow.Progress += MoveSpeed * (float) delta;
