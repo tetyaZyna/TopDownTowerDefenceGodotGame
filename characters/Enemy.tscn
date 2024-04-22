@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://characters/Enemy.cs" id="1_7gpyt"]
 
-[sub_resource type="Curve2D" id="Curve2D_pd30v"]
+[sub_resource type="Curve2D" id="Curve2D_x8bgk"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 3320, 720, 0, 0, 0, 0, 2880, 720, 0, 0, 0, 0, 2880, 800, 0, 0, 0, 0, 2160, 800, 0, 0, 0, 0, 2160, 800, 0, 0, 0, 0, 2160, 1360, 0, 0, 0, 0, 800, 1360, 0, 0, 0, 0, 800, 880, 0, 0, 0, 0, 640, 880, 0, 0, 0, 0, 600, 840)
+"points": PackedVector2Array(0, 0, 0, 0, 672, 144, 0, 0, 0, 0, 576, 144, 0, 0, 0, 0, 576, 160, 0, 0, 0, 0, 432, 160, 0, 0, 0, 0, 432, 272, 0, 0, 0, 0, 160, 272, 0, 0, 0, 0, 160, 176, 0, 0, 0, 0, 128, 176, 0, 0, 0, 0, 120, 168)
 }
-point_count = 10
+point_count = 9
 
 [node name="Enemy" type="Node2D"]
 z_index = 1
@@ -15,13 +15,11 @@ script = ExtResource("1_7gpyt")
 
 [node name="Path2D" type="Path2D" parent="."]
 y_sort_enabled = true
-scale = Vector2(0.2, 0.2)
-curve = SubResource("Curve2D_pd30v")
+curve = SubResource("Curve2D_x8bgk")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-unique_name_in_owner = true
 z_index = 1
 y_sort_enabled = true
-position = Vector2(3320, 720)
+position = Vector2(672, 144)
 rotates = false
 loop = false

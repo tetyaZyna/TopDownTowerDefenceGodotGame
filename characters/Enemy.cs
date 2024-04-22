@@ -5,9 +5,9 @@ namespace TowerDefence.characters;
 
 public partial class Enemy : Node2D
 {
-    [Export] public float MoveSpeed = 100;
+    [Export] public float MoveSpeed = 30;
     private int _hp = 10;
-    private int Hp 
+    public int Hp 
     { 
         get => _hp; 
         set
@@ -30,13 +30,13 @@ public partial class Enemy : Node2D
         Reward = new Random().Next(1, 11);
     }
 
-    public override void _Input(InputEvent @event)
-    {
-        if (Input.IsActionPressed("debug"))
-        {
-            Hp = 0;
-        }
-    }
+    // public override void _Input(InputEvent @event)
+    // {
+    //     if (Input.IsActionPressed("debug"))
+    //     {
+    //         Hp = 0;
+    //     }
+    // }
 
     public override void _PhysicsProcess(double delta)
     {

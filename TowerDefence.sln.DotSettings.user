@@ -6,4 +6,7 @@
 	
 	
 	<s:String x:Key="/Default/CodeInspection/PencilsConfiguration/Storage/@EntryValue">ThisComputer</s:String>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=bodyrid/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=bodyshapeindex/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=localshapeindex/@EntryIndexedValue">True</s:Boolean>
 	</wpf:ResourceDictionary>

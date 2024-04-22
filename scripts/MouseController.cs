@@ -1,8 +1,7 @@
-using System;
 using Godot;
-using Godot.Collections;
 using TowerDefence.characters;
 using TowerDefence.menu;
+using TowerDefence.towers;
 
 namespace TowerDefence.scripts;
 
@@ -26,7 +25,7 @@ public partial class MouseController : Node2D
 
     [Export] public int TowersSourceId = 19;
 
-    [Export] public Dictionary<string, Vector2I> TowersAtlas = new()
+    [Export] public Godot.Collections.Dictionary<string, Vector2I> TowersAtlas = new()
     {
         { "Level1", new Vector2I(0, 1) },
         { "Level2", new Vector2I(1, 0) },
@@ -40,6 +39,7 @@ public partial class MouseController : Node2D
     private Vector2I PointerPosition { get; set; }
     private Vector2I BuildPosition { get; set; }
     private PauseMenu PauseMenu { get; set; }
+    private Node2D TowersList { get; set; }
     public override void _Ready()
     {
         GetTree().Paused = false;
@@ -52,6 +52,7 @@ public partial class MouseController : Node2D
         NavigationRegion2D = GetNode<NavigationRegion2D>("NavigationRegion2D");
         PauseMenu = GetNode<PauseMenu>("CanvasLayer/PauseMenu");
         PauseMenu.PauseChanged += ChangePause;
+        TowersList = GetNode<Node2D>("Towers");
     }
 
     private void ChangePause(object sender, bool newPause)
@@ -88,16 +89,33 @@ public partial class MouseController : Node2D
             case 0:
                 GameTileMap.EraseCell(SignLevel, BuildPosition);
                 GameTileMap.SetCell(NavigationLevel, BuildPosition, TowersSourceId, TowersAtlas["Level1"]);
+                TowersList.AddChild(new Tower(GameTileMap.MapToLocal(BuildPosition)));
                 break;
             case 2:
                 var towerLevel = GameTileMap.GetCellTileData(NavigationLevel, BuildPosition).GetCustomData("towerLevel")
                     .AsInt16() + 1;
                 var levelString = "Level" + towerLevel;
                 GameTileMap.SetCell(NavigationLevel, BuildPosition, TowersSourceId, TowersAtlas[levelString]);
+                foreach (var i in TowersList.GetChildren())
+                {
+                    var j = (Tower) i;
+                    if (GameTileMap.MapToLocal(BuildPosition) == j.Position)
+                    {
+                        j.SetLevel(towerLevel);
+                    }
+                }
                 break;
             case 4:
                 GameTileMap.EraseCell(NavigationLevel, BuildPosition);
                 GameTileMap.SetCell(SignLevel, BuildPosition, SignSourceId, SignAtlasCord);
+                foreach (var i in TowersList.GetChildren())
+                {
+                    var j = (Tower) i;
+                    if (GameTileMap.MapToLocal(BuildPosition) == j.Position)
+                    {
+                        TowersList.RemoveChild(i);
+                    }
+                }
                 break;
         }
     }
